@@ -37,7 +37,7 @@ App::App( const std::string& commandLine )
 	cube.LinkTechniques( rg );
 	cube2.LinkTechniques( rg );
 	light.LinkTechniques( rg );
-	sponza.LinkTechniques( rg );
+	//sponza.LinkTechniques( rg );
 	gobber.LinkTechniques( rg );
 	nano.LinkTechniques( rg );
 	cameras.LinkTechniques( rg );
@@ -122,15 +122,15 @@ void App::DoFrame( float dt )
 		
 	light.Submit( Chan::main );
 	cube.Submit( Chan::main );
-	sponza.Submit( Chan::main );
+	//sponza.Submit( Chan::main );
 	cube2.Submit( Chan::main );
 	gobber.Submit( Chan::main );
 	nano.Submit( Chan::main );
 	cameras.Submit( Chan::main );
 
-	sponza.Submit( Chan::shadow );
+	//sponza.Submit( Chan::shadow );
 	cube.Submit( Chan::shadow );
-	sponza.Submit( Chan::shadow );
+	//sponza.Submit( Chan::shadow );
 	cube2.Submit( Chan::shadow );
 	gobber.Submit( Chan::shadow );
 	nano.Submit( Chan::shadow );
@@ -144,10 +144,10 @@ void App::DoFrame( float dt )
 	}
 	
 	// imgui windows
-	static MP sponzeProbe{ "Sponza" };
+	//static MP sponzeProbe{ "Sponza" };
 	static MP gobberProbe{ "Gobber" };
 	static MP nanoProbe{ "Nano" };
-	sponzeProbe.SpawnWindow( sponza );
+	//sponzeProbe.SpawnWindow( sponza );
 	gobberProbe.SpawnWindow( gobber );
 	nanoProbe.SpawnWindow( nano );
 	cameras.SpawnWindow( wnd.Gfx() );
