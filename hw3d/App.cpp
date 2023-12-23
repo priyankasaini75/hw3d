@@ -157,6 +157,8 @@ void App::DoFrame( float dt )
 	cube2.SpawnControlWindow( wnd.Gfx(),"Cube 2" );
 	
 	rg.RenderWindows( wnd.Gfx() );
+	cube.Update(timer.Peek());
+	cameras->Rotate(1.0f, timer.Peek());
 
 	// present
 	wnd.Gfx().EndFrame();
