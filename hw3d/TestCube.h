@@ -6,9 +6,10 @@
 class TestCube : public Drawable
 {
 public:
-	TestCube( Graphics& gfx,float size );
+	TestCube( Graphics& gfx,float size);
 	void SetPos( DirectX::XMFLOAT3 pos ) noexcept;
 	void SetRotation( float roll,float pitch,float yaw ) noexcept;
+	void Update(float dt) noexcept;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 	void SpawnControlWindow( Graphics& gfx,const char* name ) noexcept;
 private:

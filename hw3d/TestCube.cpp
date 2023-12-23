@@ -127,6 +127,11 @@ DirectX::XMMATRIX TestCube::GetTransformXM() const noexcept
 		DirectX::XMMatrixTranslation( pos.x,pos.y,pos.z );
 }
 
+void TestCube::Update(float dt) noexcept
+{
+	this->roll += dt;
+}
+
 void TestCube::SpawnControlWindow( Graphics& gfx,const char* name ) noexcept
 {
 	if( ImGui::Begin( name ) )
