@@ -17,31 +17,36 @@ App::App( const std::string& commandLine )
 	commandLine( commandLine ),
 	wnd( 1280,720,"DirectX Graphics Demo" ),
 	scriptCommander( TokenizeQuoted( commandLine ) ),
-	light( wnd.Gfx(),{ 10.0f,5.0f,0.0f } )
+	light( wnd.Gfx(),{ 10.0f,2.0f,0.0f } )
 {
-	cameras.AddCamera(light.ShareCamera());
+	
 	//cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"A",dx::XMFLOAT3{ -13.5f,6.0f,3.5f },0.0f,PI / 2.0f ) );
-	//cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"B",dx::XMFLOAT3{ -13.5f,28.8f,-6.4f },PI / 180.0f * 13.0f,PI / 180.0f * 61.0f ) );
+	cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"B",dx::XMFLOAT3{ 10.f,30.f,-1.f },PI / 180.0f * 86.0f,PI / 180.0f * 6.0f ) );
+	cameras.AddCamera(light.ShareCamera());
 	
 
-	cube.SetPos( { 10.0f,5.0f,6.0f } );
-
-	nano.SetRootTransform(
-		dx::XMMatrixRotationY( PI / 2.f ) *
-		dx::XMMatrixTranslation( 27.f,-0.56f,1.7f )
-	);
-
+	cube.SetPos( { 9.5f,1.9f,7.5f } );
+	cube.SetRotation(-PI / 180.0f * 25.0f, -PI / 180.0f * 144.0f, 0.f);
+	
 	teapot.SetRootTransform(
-		dx::XMMatrixRotationY( -PI / 2.f ) *
-		dx::XMMatrixTranslation( -8.f,10.f,0.f )
+		dx::XMMatrixRotationY(-PI / 2.f) *
+		dx::XMMatrixTranslation(-8.f, 10.f, 0.f)
 	);
+	
+	
+	sphere.SetRootTransform(
+		dx::XMMatrixRotationY( PI / 2.f ) *
+		dx::XMMatrixTranslation( 18.4f,0.5f,1.7f )
+	);
+
+
 	
 	cube.LinkTechniques( rg );
 	//cube2.LinkTechniques( rg );
 	light.LinkTechniques( rg );
 	//sponza.LinkTechniques( rg );
 	teapot.LinkTechniques( rg );
-	nano.LinkTechniques( rg );
+	sphere.LinkTechniques( rg );
 	cameras.LinkTechniques( rg );
 
 	rg.BindShadowCamera( *light.ShareCamera() );
@@ -118,7 +123,7 @@ void App::HandleInput( float dt )
 
 void App::DoFrame( float dt )
 {
-	wnd.Gfx().BeginFrame( 0.07f,0.0f,0.12f );
+	wnd.Gfx().BeginFrame( 0.0f,0.0f,0.0f );
 	light.Bind( wnd.Gfx(),cameras->GetMatrix() );
 	rg.BindMainCamera( cameras.GetActiveCamera() );
 		
@@ -127,7 +132,7 @@ void App::DoFrame( float dt )
 	//sponza.Submit( Chan::main );
 	//cube2.Submit( Chan::main );
 	teapot.Submit( Chan::main );
-	nano.Submit( Chan::main );
+	sphere.Submit( Chan::main );
 	cameras.Submit( Chan::main );
 
 	//sponza.Submit( Chan::shadow );
@@ -135,7 +140,7 @@ void App::DoFrame( float dt )
 	//sponza.Submit( Chan::shadow );
 	//cube2.Submit( Chan::shadow );
 	teapot.Submit( Chan::shadow );
-	nano.Submit( Chan::shadow );
+	sphere.Submit( Chan::shadow );
 
 	rg.Execute( wnd.Gfx() );
 
@@ -148,17 +153,17 @@ void App::DoFrame( float dt )
 	// imgui windows
 	//static MP sponzeProbe{ "Sponza" };
 	static MP teaProbe{ "teapot" };
-	static MP nanoProbe{ "Nano" };
+	static MP sphereProbe{ "sphere" };
 	//sponzeProbe.SpawnWindow( sponza );
 	teaProbe.SpawnWindow( teapot );
-	nanoProbe.SpawnWindow( nano );
+	sphereProbe.SpawnWindow( sphere );
 	cameras.SpawnWindow( wnd.Gfx() );
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
 	cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
 	
 	rg.RenderWindows( wnd.Gfx() );
-	cube.Update(timer.Peek());
+	//cube.Update(timer.Peek());
 	//cameras->Rotate(1.0f, timer.Peek());
 	teapot.UpdateTransform(timer.Peek(),"pitch",1.f);
 

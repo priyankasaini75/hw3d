@@ -33,13 +33,14 @@ private:
 	float speed_factor = 1.0f;
 	CameraContainer cameras;
 	PointLight light;
-	TestCube cube{ wnd.Gfx(),4.0f,"Tetrahedron"}; 
+	TestCube cube{ wnd.Gfx(),2.0f,"Tetrahedron"}; 
+	Model teapot{ wnd.Gfx(),"Models\\teapot\\teapot.obj",0.05f };
 
 	//TestCube cube2{ wnd.Gfx(),4.0f };
 	//Model sponza{ wnd.Gfx(),"Models\\sponza\\sponza.obj",1.0f / 20.0f };
 	//Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj",4.0f };
-	Model teapot{ wnd.Gfx(),"Models\\teapot\\teapot.obj",0.05f };
-	Model nano{ wnd.Gfx(),"Models\\wooden_sphere\\wooden_sphere.obj",0.5f };
+	
+	Model sphere{ wnd.Gfx(),"Models\\wooden_sphere\\wooden_sphere.obj",0.5f };
 	//Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
 
 	bool savingDepth = false;
