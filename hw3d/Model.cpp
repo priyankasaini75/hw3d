@@ -65,9 +65,8 @@ void Model::SetRootTransform( DirectX::FXMMATRIX tf ) noexcept
 	);
 }*/
 
-void Model::UpdateTransform(float dt, const std::string& desiredAxis) noexcept
+void Model::UpdateTransform(float dt, const std::string& desiredAxis, float speed) noexcept
 {
-	const float speed = 1.f;
 
 	// Check the provided axis and apply the corresponding rotation
 	if (desiredAxis == "roll")

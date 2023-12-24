@@ -148,7 +148,7 @@ void App::DoFrame( float dt )
 	static MP gobberProbe{ "Gobber" };
 	static MP nanoProbe{ "Nano" };
 	//sponzeProbe.SpawnWindow( sponza );
-	//gobberProbe.SpawnWindow( gobber );
+	gobberProbe.SpawnWindow( gobber );
 	//nanoProbe.SpawnWindow( nano );
 	cameras.SpawnWindow( wnd.Gfx() );
 	light.SpawnControlWindow();
@@ -159,9 +159,7 @@ void App::DoFrame( float dt )
 	rg.RenderWindows( wnd.Gfx() );
 	cube.Update(timer.Peek());
 	//cameras->Rotate(1.0f, timer.Peek());
-	gobberProbe.SpawnWindow(gobber);
-	gobber.UpdateTransform(timer.Peek());
-
+	gobber.UpdateTransform(timer.Peek(),"pitch",1.f);
 	/*gobber.SetRootTransform(
 		dx::XMMatrixRotationY(-PI / 2.f) *
 		dx::XMMatrixTranslation(-8.f, 10.f, 0.f)
