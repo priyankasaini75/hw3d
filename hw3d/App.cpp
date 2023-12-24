@@ -15,21 +15,23 @@ namespace dx = DirectX;
 App::App( const std::string& commandLine )
 	:
 	commandLine( commandLine ),
-	wnd( 1280,720,"The Donkey Fart Box" ),
+	wnd( 1280,720,"DirectX Graphics Demo" ),
 	scriptCommander( TokenizeQuoted( commandLine ) ),
 	light( wnd.Gfx(),{ 10.0f,5.0f,0.0f } )
 {
-	cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"A",dx::XMFLOAT3{ -13.5f,6.0f,3.5f },0.0f,PI / 2.0f ) );
-	cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"B",dx::XMFLOAT3{ -13.5f,28.8f,-6.4f },PI / 180.0f * 13.0f,PI / 180.0f * 61.0f ) );
-	cameras.AddCamera( light.ShareCamera() );
+	cameras.AddCamera(light.ShareCamera());
+	//cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"A",dx::XMFLOAT3{ -13.5f,6.0f,3.5f },0.0f,PI / 2.0f ) );
+	//cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"B",dx::XMFLOAT3{ -13.5f,28.8f,-6.4f },PI / 180.0f * 13.0f,PI / 180.0f * 61.0f ) );
+	
 
 	cube.SetPos( { 10.0f,5.0f,6.0f } );
-	//cube2.SetPos( { 10.0f,5.0f,14.0f } );
+
 	nano.SetRootTransform(
 		dx::XMMatrixRotationY( PI / 2.f ) *
 		dx::XMMatrixTranslation( 27.f,-0.56f,1.7f )
 	);
-	gobber.SetRootTransform(
+
+	teapot.SetRootTransform(
 		dx::XMMatrixRotationY( -PI / 2.f ) *
 		dx::XMMatrixTranslation( -8.f,10.f,0.f )
 	);
@@ -38,7 +40,7 @@ App::App( const std::string& commandLine )
 	//cube2.LinkTechniques( rg );
 	light.LinkTechniques( rg );
 	//sponza.LinkTechniques( rg );
-	gobber.LinkTechniques( rg );
+	teapot.LinkTechniques( rg );
 	nano.LinkTechniques( rg );
 	cameras.LinkTechniques( rg );
 
@@ -124,7 +126,7 @@ void App::DoFrame( float dt )
 	cube.Submit( Chan::main );
 	//sponza.Submit( Chan::main );
 	//cube2.Submit( Chan::main );
-	gobber.Submit( Chan::main );
+	teapot.Submit( Chan::main );
 	nano.Submit( Chan::main );
 	cameras.Submit( Chan::main );
 
@@ -132,7 +134,7 @@ void App::DoFrame( float dt )
 	cube.Submit( Chan::shadow );
 	//sponza.Submit( Chan::shadow );
 	//cube2.Submit( Chan::shadow );
-	gobber.Submit( Chan::shadow );
+	teapot.Submit( Chan::shadow );
 	nano.Submit( Chan::shadow );
 
 	rg.Execute( wnd.Gfx() );
@@ -145,26 +147,20 @@ void App::DoFrame( float dt )
 	
 	// imgui windows
 	//static MP sponzeProbe{ "Sponza" };
-	static MP gobberProbe{ "Gobber" };
+	static MP teaProbe{ "teapot" };
 	static MP nanoProbe{ "Nano" };
 	//sponzeProbe.SpawnWindow( sponza );
-	gobberProbe.SpawnWindow( gobber );
-	//nanoProbe.SpawnWindow( nano );
+	teaProbe.SpawnWindow( teapot );
+	nanoProbe.SpawnWindow( nano );
 	cameras.SpawnWindow( wnd.Gfx() );
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
 	cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
-	//cube2.SpawnControlWindow( wnd.Gfx(),"Cube 2" );
 	
 	rg.RenderWindows( wnd.Gfx() );
 	cube.Update(timer.Peek());
 	//cameras->Rotate(1.0f, timer.Peek());
-	gobber.UpdateTransform(timer.Peek(),"pitch",1.f);
-	/*gobber.SetRootTransform(
-		dx::XMMatrixRotationY(-PI / 2.f) *
-		dx::XMMatrixTranslation(-8.f, 10.f, 0.f)
-	);*/
-	//gobber.Update(timer.Peek()*100);
+	teapot.UpdateTransform(timer.Peek(),"pitch",1.f);
 
 	// present
 	wnd.Gfx().EndFrame();
