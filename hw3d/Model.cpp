@@ -54,15 +54,32 @@ void Model::SetRootTransform( DirectX::FXMMATRIX tf ) noexcept
 	pRoot->SetAppliedTransform( tf );
 }
 
-void Model::SetPos(float x, float y,float z) noexcept
+void Model::SetPos(float x, float y,float z, float roll, float pitch, float yaw) noexcept
 {
 	tf.x = x;
 	tf.y = y;
 	tf.z = z;
+	tf.xRot = roll;
+	tf.yRot = pitch;
+	tf.zRot = yaw;
+	dx::XMMATRIX rotationMatrix = dx::XMMatrixRotationRollPitchYaw(tf.xRot, tf.yRot, tf.zRot);
 	pRoot->SetAppliedTransform(
+		rotationMatrix *
 		dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 	);
 }
+
+/*void Model::SetRotation(float roll, float pitch, float yaw) noexcept
+{
+	tf.xRot = roll;
+	tf.yRot = pitch;
+	tf.zRot = yaw;
+	pRoot->SetAppliedTransform(
+		dx::XMMatrixRotationX(tf.xRot) *
+		dx::XMMatrixRotationY(tf.yRot) *
+		dx::XMMatrixRotationZ(tf.zRot)
+	);
+}*/
 
 void Model::UpdateTransform(float dt, const std::string& desiredAxis, float speed) noexcept
 {
@@ -73,7 +90,8 @@ void Model::UpdateTransform(float dt, const std::string& desiredAxis, float spee
 		pRoot->SetAppliedTransform(
 			dx::XMMatrixRotationX(tf.xRot += speed * dt) *
 			dx::XMMatrixRotationY(tf.yRot) *
-			dx::XMMatrixRotationZ(tf.zRot)
+			dx::XMMatrixRotationZ(tf.zRot) *
+			dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 		);
 	}
 	else if (desiredAxis == "pitch")
@@ -81,7 +99,8 @@ void Model::UpdateTransform(float dt, const std::string& desiredAxis, float spee
 		pRoot->SetAppliedTransform(
 			dx::XMMatrixRotationX(tf.xRot) *
 			dx::XMMatrixRotationY(tf.yRot += speed * dt) *
-			dx::XMMatrixRotationZ(tf.zRot)
+			dx::XMMatrixRotationZ(tf.zRot) *
+			dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 		);
 	}
 	else if (desiredAxis == "yaw")
@@ -89,7 +108,8 @@ void Model::UpdateTransform(float dt, const std::string& desiredAxis, float spee
 		pRoot->SetAppliedTransform(
 			dx::XMMatrixRotationX(tf.xRot) *
 			dx::XMMatrixRotationY(tf.yRot) *
-			dx::XMMatrixRotationZ(tf.zRot += speed * dt)
+			dx::XMMatrixRotationZ(tf.zRot += speed * dt) *
+			dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 		);
 	}
 	else if (desiredAxis == "all")
@@ -97,7 +117,8 @@ void Model::UpdateTransform(float dt, const std::string& desiredAxis, float spee
 		pRoot->SetAppliedTransform(
 			dx::XMMatrixRotationX(tf.xRot += speed * dt) *
 			dx::XMMatrixRotationY(tf.yRot += speed * dt) *
-			dx::XMMatrixRotationZ(tf.zRot += speed * dt)
+			dx::XMMatrixRotationZ(tf.zRot += speed * dt) *
+			dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 		);
 	}
 

@@ -38,7 +38,8 @@ App::App( const std::string& commandLine )
 		dx::XMMatrixTranslation( 18.4f,0.5f,1.7f )
 	);*/
 
-	sphere.SetPos(18.4f, 0.5f, 1.7f);
+	sphere.SetPos(18.4f, 0.5f, 1.7f, PI / 6.f, 0.f, 0.f);
+	//sphere.SetRotation(PI / 2.f, PI / 2.f, PI / 2.f);
 	
 	cube.LinkTechniques( rg );
 	light.LinkTechniques( rg );
@@ -157,7 +158,7 @@ void App::DoFrame( float dt )
 	//cameras->Rotate(1.0f, timer.Peek());
 	teapot.UpdateTransform(timer.Peek(),"pitch",1.f);
 	cube.Update(timer.Peek());
-	sphere.UpdateTransform(timer.Peek(), "x", 1.f);
+	sphere.UpdateTransform(timer.Peek(), "pitch", 10.f);
 
 	// present
 	wnd.Gfx().EndFrame();

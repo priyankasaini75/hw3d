@@ -22,7 +22,8 @@ public:
 	Model( Graphics& gfx,const std::string& pathString,float scale = 1.0f );
 	void Submit( size_t channels ) const noxnd;
 	void SetRootTransform( DirectX::FXMMATRIX tf ) noexcept;
-	void SetPos(float x, float y, float z) noexcept;
+	void SetPos(float x, float y, float z, float roll, float pitch, float yaw) noexcept;
+	//void SetRotation(float roll, float pitch, float yaw) noexcept;
 	void UpdateTransform(float dt, const std::string& desiredAxis, float speed) noexcept;
 	void Accept( class ModelProbe& probe );
 	void LinkTechniques( Rgph::RenderGraph& );
