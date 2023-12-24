@@ -21,8 +21,9 @@ App::App( const std::string& commandLine )
 {
 	
 	//cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"A",dx::XMFLOAT3{ -13.5f,6.0f,3.5f },0.0f,PI / 2.0f ) );
-	cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"B",dx::XMFLOAT3{ 10.f,30.f,-1.f },PI / 180.0f * 86.0f,PI / 180.0f * 6.0f ) );
-	cameras.AddCamera(light.ShareCamera());
+	//cameras.AddCamera( std::make_unique<Camera>( wnd.Gfx(),"B",dx::XMFLOAT3{ 10.f,30.f,-1.f },PI / 180.0f * 86.0f,PI / 180.0f * 6.0f ) );
+	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "B", dx::XMFLOAT3{ 10.0f,2.0f,0.0f }, 0.f, -PI / 2.0f));
+	//cameras.AddCamera(light.ShareCamera());
 	
 
 	cube.SetPos( { 9.5f,1.9f,7.5f } );
@@ -146,16 +147,16 @@ void App::DoFrame( float dt )
 	// imgui windows
 	static MP teaProbe{ "teapot" };
 	static MP sphereProbe{ "sphere" };
-	teaProbe.SpawnWindow( teapot );
-	sphereProbe.SpawnWindow( sphere );
-	cameras.SpawnWindow( wnd.Gfx() );
-	light.SpawnControlWindow();
-	ShowImguiDemoWindow();
+	//teaProbe.SpawnWindow( teapot );
+	//sphereProbe.SpawnWindow( sphere );
+	//cameras.SpawnWindow( wnd.Gfx() );
+	//light.SpawnControlWindow();
+	//ShowImguiDemoWindow();
 	cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
 	
-	rg.RenderWindows( wnd.Gfx() );
+	//rg.RenderWindows( wnd.Gfx() );
 	
-	//cameras->Rotate(1.0f, timer.Peek());
+	cameras->Rotate(0.3f, timer.Peek());
 	teapot.UpdateTransform(timer.Peek(),"pitch",1.f);
 	cube.Update(timer.Peek());
 	sphere.UpdateTransform(timer.Peek(), "pitch", 10.f);
