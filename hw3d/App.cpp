@@ -24,7 +24,7 @@ App::App( const std::string& commandLine )
 	cameras.AddCamera( light.ShareCamera() );
 
 	cube.SetPos( { 10.0f,5.0f,6.0f } );
-	cube2.SetPos( { 10.0f,5.0f,14.0f } );
+	//cube2.SetPos( { 10.0f,5.0f,14.0f } );
 	nano.SetRootTransform(
 		dx::XMMatrixRotationY( PI / 2.f ) *
 		dx::XMMatrixTranslation( 27.f,-0.56f,1.7f )
@@ -35,7 +35,7 @@ App::App( const std::string& commandLine )
 	);
 	
 	cube.LinkTechniques( rg );
-	cube2.LinkTechniques( rg );
+	//cube2.LinkTechniques( rg );
 	light.LinkTechniques( rg );
 	//sponza.LinkTechniques( rg );
 	gobber.LinkTechniques( rg );
@@ -123,7 +123,7 @@ void App::DoFrame( float dt )
 	light.Submit( Chan::main );
 	cube.Submit( Chan::main );
 	//sponza.Submit( Chan::main );
-	cube2.Submit( Chan::main );
+	//cube2.Submit( Chan::main );
 	gobber.Submit( Chan::main );
 	nano.Submit( Chan::main );
 	cameras.Submit( Chan::main );
@@ -131,7 +131,7 @@ void App::DoFrame( float dt )
 	//sponza.Submit( Chan::shadow );
 	cube.Submit( Chan::shadow );
 	//sponza.Submit( Chan::shadow );
-	cube2.Submit( Chan::shadow );
+	//cube2.Submit( Chan::shadow );
 	gobber.Submit( Chan::shadow );
 	nano.Submit( Chan::shadow );
 
@@ -148,8 +148,8 @@ void App::DoFrame( float dt )
 	static MP gobberProbe{ "Gobber" };
 	static MP nanoProbe{ "Nano" };
 	//sponzeProbe.SpawnWindow( sponza );
-	gobberProbe.SpawnWindow( gobber );
-	nanoProbe.SpawnWindow( nano );
+	//gobberProbe.SpawnWindow( gobber );
+	//nanoProbe.SpawnWindow( nano );
 	cameras.SpawnWindow( wnd.Gfx() );
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
@@ -159,6 +159,8 @@ void App::DoFrame( float dt )
 	rg.RenderWindows( wnd.Gfx() );
 	cube.Update(timer.Peek());
 	//cameras->Rotate(1.0f, timer.Peek());
+	gobberProbe.SpawnWindow(gobber);
+	gobber.UpdateTransform(timer.Peek());
 
 	/*gobber.SetRootTransform(
 		dx::XMMatrixRotationY(-PI / 2.f) *

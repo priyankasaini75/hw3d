@@ -54,6 +54,16 @@ void Model::SetRootTransform( DirectX::FXMMATRIX tf ) noexcept
 	pRoot->SetAppliedTransform( tf );
 }
 
+void Model::UpdateTransform(float dt) noexcept
+{
+	pRoot->SetAppliedTransform(
+		dx::XMMatrixRotationX(tf.xRot) *
+		dx::XMMatrixRotationY(tf.yRot += 1.f * dt) *
+		dx::XMMatrixRotationZ(tf.zRot) *
+		dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
+	);
+}
+
 void Model::Accept( ModelProbe & probe )
 {
 	pRoot->Accept( probe );
