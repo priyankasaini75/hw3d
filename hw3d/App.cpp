@@ -152,7 +152,7 @@ void App::DoFrame( float dt )
 	//cameras.SpawnWindow( wnd.Gfx() );
 	//light.SpawnControlWindow();
 	//ShowImguiDemoWindow();
-	cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
+	//cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
 	
 	//rg.RenderWindows( wnd.Gfx() );
 	
