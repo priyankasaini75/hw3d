@@ -52,8 +52,9 @@ public:
 		using Type = Dvtx::VertexLayout::ElementType;
 
 		constexpr float side = 1.0f / 2.0f;
+		constexpr float side_2 = 1.0f;
 
-		VertexBuffer vertices( std::move( layout ),24u );
+		VertexBuffer vertices(std::move(layout), 24u);
 		vertices[0].Attr<Type::Position3D>() = { -side,-side,-side };// 0 near side
 		vertices[1].Attr<Type::Position3D>() = { side,-side,-side };// 1
 		vertices[2].Attr<Type::Position3D>() = { -side,side,-side };// 2
@@ -101,7 +102,7 @@ public:
 			.Append( Type::Texture2D )
 		) );
 
-		itl.vertices[0].Attr<Type::Texture2D>() = { 0.0f,0.0f };
+		itl.vertices[0].Attr<Type::Texture2D>() = {0.0f,0.0f};
 		itl.vertices[1].Attr<Type::Texture2D>() = { 1.0f,0.0f };
 		itl.vertices[2].Attr<Type::Texture2D>() = { 0.0f,1.0f };
 		itl.vertices[3].Attr<Type::Texture2D>() = { 1.0f,1.0f };
@@ -128,4 +129,47 @@ public:
 
 		return itl;
 	}
+
+	static IndexedTriangleList MakeTetrahedron(Dvtx::VertexLayout layout)
+	{
+		using namespace Dvtx;
+		using Type = Dvtx::VertexLayout::ElementType;
+
+		constexpr float side = 1.0f;
+
+		VertexBuffer vertices(std::move(layout), 4u);
+		vertices[0].Attr<Type::Position3D>() = { 1.0f, 0.0f, -side };   // Vertex 0
+		vertices[1].Attr<Type::Position3D>() = { -1.0f, 0.0f, -side };  // Vertex 1
+		vertices[2].Attr<Type::Position3D>() = { 0.0f, 1.0f, side };    // Vertex 2
+		vertices[3].Attr<Type::Position3D>() = { 0.0f, -1.0f, side };   // Vertex 3
+
+		return{
+			std::move(vertices), {
+				0, 1, 2, // Face 0
+				0, 2, 3, // Face 1
+				0, 3, 1, // Face 2
+				1, 3, 2  // Face 3
+			}
+		};
+	}
+
+	static IndexedTriangleList MakeTetrahedronTextured()
+	{
+		using namespace Dvtx;
+		using Type = Dvtx::VertexLayout::ElementType;
+
+		auto itl = MakeTetrahedron(std::move(VertexLayout{}
+			.Append(Type::Position3D)
+			.Append(Type::Normal)
+			.Append(Type::Texture2D)
+		));
+
+		itl.vertices[0].Attr<Type::Texture2D>() = { 0.5f, 1.0f };   // Vertex 0
+		itl.vertices[1].Attr<Type::Texture2D>() = { 1.0f, 0.0f };   // Vertex 1
+		itl.vertices[2].Attr<Type::Texture2D>() = { 0.0f, 0.0f };   // Vertex 2
+		itl.vertices[3].Attr<Type::Texture2D>() = { 0.5f, 0.5f };   // Vertex 3
+
+		return itl;
+	}
+
 };
