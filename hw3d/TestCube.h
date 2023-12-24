@@ -6,7 +6,7 @@
 class TestCube : public Drawable
 {
 public:
-	TestCube( Graphics& gfx,float size);
+	TestCube( Graphics& gfx,float size, const std::string& type);
 	void SetPos( DirectX::XMFLOAT3 pos ) noexcept;
 	void SetRotation( float roll,float pitch,float yaw ) noexcept;
 	void Update(float dt) noexcept;

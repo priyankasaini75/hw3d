@@ -91,43 +91,59 @@ public:
 			}
 		};
 	}
-	static IndexedTriangleList MakeIndependentTextured()
+	static IndexedTriangleList MakeIndependentTextured(const std::string& inputString)
 	{
 		using namespace Dvtx;
 		using Type = Dvtx::VertexLayout::ElementType;
 
-		auto itl = MakeIndependent( std::move( VertexLayout{}
-			.Append( Type::Position3D )
-			.Append( Type::Normal )
-			.Append( Type::Texture2D )
-		) );
 
-		itl.vertices[0].Attr<Type::Texture2D>() = {0.0f,0.0f};
-		itl.vertices[1].Attr<Type::Texture2D>() = { 1.0f,0.0f };
-		itl.vertices[2].Attr<Type::Texture2D>() = { 0.0f,1.0f };
-		itl.vertices[3].Attr<Type::Texture2D>() = { 1.0f,1.0f };
-		itl.vertices[4].Attr<Type::Texture2D>() = { 0.0f,0.0f };
-		itl.vertices[5].Attr<Type::Texture2D>() = { 1.0f,0.0f };
-		itl.vertices[6].Attr<Type::Texture2D>() = { 0.0f,1.0f };
-		itl.vertices[7].Attr<Type::Texture2D>() = { 1.0f,1.0f };
-		itl.vertices[8].Attr<Type::Texture2D>() = { 0.0f,0.0f };
-		itl.vertices[9].Attr<Type::Texture2D>() = { 1.0f,0.0f };
-		itl.vertices[10].Attr<Type::Texture2D>() = { 0.0f,1.0f };
-		itl.vertices[11].Attr<Type::Texture2D>() = { 1.0f,1.0f };
-		itl.vertices[12].Attr<Type::Texture2D>() = { 0.0f,0.0f };
-		itl.vertices[13].Attr<Type::Texture2D>() = { 1.0f,0.0f };
-		itl.vertices[14].Attr<Type::Texture2D>() = { 0.0f,1.0f };
-		itl.vertices[15].Attr<Type::Texture2D>() = { 1.0f,1.0f };
-		itl.vertices[16].Attr<Type::Texture2D>() = { 0.0f,0.0f };
-		itl.vertices[17].Attr<Type::Texture2D>() = { 1.0f,0.0f };
-		itl.vertices[18].Attr<Type::Texture2D>() = { 0.0f,1.0f };
-		itl.vertices[19].Attr<Type::Texture2D>() = { 1.0f,1.0f };
-		itl.vertices[20].Attr<Type::Texture2D>() = { 0.0f,0.0f };
-		itl.vertices[21].Attr<Type::Texture2D>() = { 1.0f,0.0f };
-		itl.vertices[22].Attr<Type::Texture2D>() = { 0.0f,1.0f };
-		itl.vertices[23].Attr<Type::Texture2D>() = { 1.0f,1.0f };
+		if (inputString != "Tetrahedron") {
+			auto itl = MakeIndependent(std::move(VertexLayout{}
+				.Append(Type::Position3D)
+				.Append(Type::Normal)
+				.Append(Type::Texture2D)
+			));
 
-		return itl;
+			itl.vertices[0].Attr<Type::Texture2D>() = { 0.0f,0.0f };
+			itl.vertices[1].Attr<Type::Texture2D>() = { 1.0f,0.0f };
+			itl.vertices[2].Attr<Type::Texture2D>() = { 0.0f,1.0f };
+			itl.vertices[3].Attr<Type::Texture2D>() = { 1.0f,1.0f };
+			itl.vertices[4].Attr<Type::Texture2D>() = { 0.0f,0.0f };
+			itl.vertices[5].Attr<Type::Texture2D>() = { 1.0f,0.0f };
+			itl.vertices[6].Attr<Type::Texture2D>() = { 0.0f,1.0f };
+			itl.vertices[7].Attr<Type::Texture2D>() = { 1.0f,1.0f };
+			itl.vertices[8].Attr<Type::Texture2D>() = { 0.0f,0.0f };
+			itl.vertices[9].Attr<Type::Texture2D>() = { 1.0f,0.0f };
+			itl.vertices[10].Attr<Type::Texture2D>() = { 0.0f,1.0f };
+			itl.vertices[11].Attr<Type::Texture2D>() = { 1.0f,1.0f };
+			itl.vertices[12].Attr<Type::Texture2D>() = { 0.0f,0.0f };
+			itl.vertices[13].Attr<Type::Texture2D>() = { 1.0f,0.0f };
+			itl.vertices[14].Attr<Type::Texture2D>() = { 0.0f,1.0f };
+			itl.vertices[15].Attr<Type::Texture2D>() = { 1.0f,1.0f };
+			itl.vertices[16].Attr<Type::Texture2D>() = { 0.0f,0.0f };
+			itl.vertices[17].Attr<Type::Texture2D>() = { 1.0f,0.0f };
+			itl.vertices[18].Attr<Type::Texture2D>() = { 0.0f,1.0f };
+			itl.vertices[19].Attr<Type::Texture2D>() = { 1.0f,1.0f };
+			itl.vertices[20].Attr<Type::Texture2D>() = { 0.0f,0.0f };
+			itl.vertices[21].Attr<Type::Texture2D>() = { 1.0f,0.0f };
+			itl.vertices[22].Attr<Type::Texture2D>() = { 0.0f,1.0f };
+			itl.vertices[23].Attr<Type::Texture2D>() = { 1.0f,1.0f };
+			return itl;
+		}
+		else {
+			auto itl = MakeTetrahedron(std::move(VertexLayout{}
+				.Append(Type::Position3D)
+				.Append(Type::Normal)
+				.Append(Type::Texture2D)
+			));
+
+			itl.vertices[0].Attr<Type::Texture2D>() = { 0.5f, 1.0f };   // Vertex 0
+			itl.vertices[1].Attr<Type::Texture2D>() = { 1.0f, 0.0f };   // Vertex 1
+			itl.vertices[2].Attr<Type::Texture2D>() = { 0.0f, 0.0f };   // Vertex 2
+			itl.vertices[3].Attr<Type::Texture2D>() = { 0.5f, 0.5f };   // Vertex 3
+
+			return itl;
+		}
 	}
 
 	static IndexedTriangleList MakeTetrahedron(Dvtx::VertexLayout layout)

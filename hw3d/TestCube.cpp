@@ -8,12 +8,12 @@
 #include "TransformCbufScaling.h"
 #include "Channels.h"
 
-TestCube::TestCube( Graphics& gfx,float size )
+TestCube::TestCube( Graphics& gfx,float size,const std::string& type)
 {
 	using namespace Bind;
 	namespace dx = DirectX;
 
-	auto model = Cube::MakeIndependentTextured();
+	auto model = Cube::MakeIndependentTextured(type);
 	model.Transform( dx::XMMatrixScaling( size,size,size ) );
 	model.SetNormalsIndependentFlat();
 	const auto geometryTag = "$cube." + std::to_string( size );
