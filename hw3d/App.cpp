@@ -154,11 +154,17 @@ void App::DoFrame( float dt )
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
 	cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
-	cube2.SpawnControlWindow( wnd.Gfx(),"Cube 2" );
+	//cube2.SpawnControlWindow( wnd.Gfx(),"Cube 2" );
 	
 	rg.RenderWindows( wnd.Gfx() );
 	cube.Update(timer.Peek());
-	cameras->Rotate(1.0f, timer.Peek());
+	//cameras->Rotate(1.0f, timer.Peek());
+
+	/*gobber.SetRootTransform(
+		dx::XMMatrixRotationY(-PI / 2.f) *
+		dx::XMMatrixTranslation(-8.f, 10.f, 0.f)
+	);*/
+	//gobber.Update(timer.Peek()*100);
 
 	// present
 	wnd.Gfx().EndFrame();
