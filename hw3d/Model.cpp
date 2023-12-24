@@ -54,14 +54,73 @@ void Model::SetRootTransform( DirectX::FXMMATRIX tf ) noexcept
 	pRoot->SetAppliedTransform( tf );
 }
 
-void Model::UpdateTransform(float dt) noexcept
+/*void Model::UpdateTransform(float dt) noexcept
 {
+	const float speed = 1.f;
 	pRoot->SetAppliedTransform(
 		dx::XMMatrixRotationX(tf.xRot) *
-		dx::XMMatrixRotationY(tf.yRot += 1.f * dt) *
+		dx::XMMatrixRotationY(tf.yRot += speed * dt) *
 		dx::XMMatrixRotationZ(tf.zRot) *
 		dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 	);
+}*/
+
+void Model::UpdateTransform(float dt, const std::string& desiredAxis) noexcept
+{
+	const float speed = 1.f;
+
+	// Check the provided axis and apply the corresponding rotation
+	if (desiredAxis == "roll")
+	{
+		pRoot->SetAppliedTransform(
+			dx::XMMatrixRotationX(tf.xRot += speed * dt) *
+			dx::XMMatrixRotationY(tf.yRot) *
+			dx::XMMatrixRotationZ(tf.zRot)
+		);
+	}
+	else if (desiredAxis == "pitch")
+	{
+		pRoot->SetAppliedTransform(
+			dx::XMMatrixRotationX(tf.xRot) *
+			dx::XMMatrixRotationY(tf.yRot += speed * dt) *
+			dx::XMMatrixRotationZ(tf.zRot)
+		);
+	}
+	else if (desiredAxis == "yaw")
+	{
+		pRoot->SetAppliedTransform(
+			dx::XMMatrixRotationX(tf.xRot) *
+			dx::XMMatrixRotationY(tf.yRot) *
+			dx::XMMatrixRotationZ(tf.zRot += speed * dt)
+		);
+	}
+	else if (desiredAxis == "all")
+	{
+		pRoot->SetAppliedTransform(
+			dx::XMMatrixRotationX(tf.xRot += speed * dt) *
+			dx::XMMatrixRotationY(tf.yRot += speed * dt) *
+			dx::XMMatrixRotationZ(tf.zRot += speed * dt)
+		);
+	}
+
+	else if (desiredAxis == "x")
+	{
+		pRoot->SetAppliedTransform(
+			dx::XMMatrixTranslation(tf.x += speed * dt, tf.y, tf.z)
+		);
+	}
+	else if (desiredAxis == "y")
+	{
+		pRoot->SetAppliedTransform(
+			dx::XMMatrixTranslation(tf.x, tf.y += speed * dt, tf.z)
+		);
+	}
+	else if (desiredAxis == "z")
+	{
+		pRoot->SetAppliedTransform(
+			dx::XMMatrixTranslation(tf.x, tf.y, tf.z += speed * dt)
+		);
+	}
 }
 
 void Model::Accept( ModelProbe & probe )

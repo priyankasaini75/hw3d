@@ -22,7 +22,7 @@ public:
 	Model( Graphics& gfx,const std::string& pathString,float scale = 1.0f );
 	void Submit( size_t channels ) const noxnd;
 	void SetRootTransform( DirectX::FXMMATRIX tf ) noexcept;
-	void UpdateTransform(float dt) noexcept;
+	void UpdateTransform(float dt, const std::string& desiredAxis) noexcept;
 	void Accept( class ModelProbe& probe );
 	void LinkTechniques( Rgph::RenderGraph& );
 	~Model() noexcept;
