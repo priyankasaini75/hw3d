@@ -418,6 +418,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="chili.ico" />
+    <Image Include="DirectXApp.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXGetErrorDescription.inl" />

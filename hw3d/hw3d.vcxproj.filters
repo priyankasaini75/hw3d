@@ -672,6 +672,9 @@
     <Image Include="chili.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="DirectXApp.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXGetErrorDescription.inl">
