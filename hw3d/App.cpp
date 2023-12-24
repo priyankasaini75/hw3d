@@ -26,25 +26,20 @@ App::App( const std::string& commandLine )
 	
 
 	cube.SetPos( { 9.5f,1.9f,7.5f } );
-	cube.SetRotation(-PI / 180.0f * 25.0f, -PI / 180.0f * 144.0f, 0.f);
+	cube.SetRotation(-PI / 180.0f * 25.0f, -PI / 180.0f * 70.0f, 0.f);
 	
 	teapot.SetRootTransform(
 		dx::XMMatrixRotationY(-PI / 2.f) *
 		dx::XMMatrixTranslation(-8.f, 10.f, 0.f)
 	);
 	
-	
 	sphere.SetRootTransform(
 		dx::XMMatrixRotationY( PI / 2.f ) *
 		dx::XMMatrixTranslation( 18.4f,0.5f,1.7f )
 	);
-
-
 	
 	cube.LinkTechniques( rg );
-	//cube2.LinkTechniques( rg );
 	light.LinkTechniques( rg );
-	//sponza.LinkTechniques( rg );
 	teapot.LinkTechniques( rg );
 	sphere.LinkTechniques( rg );
 	cameras.LinkTechniques( rg );
@@ -129,16 +124,11 @@ void App::DoFrame( float dt )
 		
 	light.Submit( Chan::main );
 	cube.Submit( Chan::main );
-	//sponza.Submit( Chan::main );
-	//cube2.Submit( Chan::main );
 	teapot.Submit( Chan::main );
 	sphere.Submit( Chan::main );
 	cameras.Submit( Chan::main );
 
-	//sponza.Submit( Chan::shadow );
 	cube.Submit( Chan::shadow );
-	//sponza.Submit( Chan::shadow );
-	//cube2.Submit( Chan::shadow );
 	teapot.Submit( Chan::shadow );
 	sphere.Submit( Chan::shadow );
 
@@ -151,10 +141,8 @@ void App::DoFrame( float dt )
 	}
 	
 	// imgui windows
-	//static MP sponzeProbe{ "Sponza" };
 	static MP teaProbe{ "teapot" };
 	static MP sphereProbe{ "sphere" };
-	//sponzeProbe.SpawnWindow( sponza );
 	teaProbe.SpawnWindow( teapot );
 	sphereProbe.SpawnWindow( sphere );
 	cameras.SpawnWindow( wnd.Gfx() );
@@ -163,9 +151,10 @@ void App::DoFrame( float dt )
 	cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
 	
 	rg.RenderWindows( wnd.Gfx() );
-	//cube.Update(timer.Peek());
+	
 	//cameras->Rotate(1.0f, timer.Peek());
 	teapot.UpdateTransform(timer.Peek(),"pitch",1.f);
+	cube.Update(timer.Peek());
 
 	// present
 	wnd.Gfx().EndFrame();
