@@ -54,16 +54,15 @@ void Model::SetRootTransform( DirectX::FXMMATRIX tf ) noexcept
 	pRoot->SetAppliedTransform( tf );
 }
 
-/*void Model::UpdateTransform(float dt) noexcept
+void Model::SetPos(float x, float y,float z) noexcept
 {
-	const float speed = 1.f;
+	tf.x = x;
+	tf.y = y;
+	tf.z = z;
 	pRoot->SetAppliedTransform(
-		dx::XMMatrixRotationX(tf.xRot) *
-		dx::XMMatrixRotationY(tf.yRot += speed * dt) *
-		dx::XMMatrixRotationZ(tf.zRot) *
 		dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 	);
-}*/
+}
 
 void Model::UpdateTransform(float dt, const std::string& desiredAxis, float speed) noexcept
 {
